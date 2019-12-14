@@ -1,4 +1,5 @@
 ﻿  FBullCowGame.cpp
+c:\users\torra\documents\section_02\projekt\section_02\bullcowgame\fbullcowgame.cpp(37): error C2511: „bool FBullCowGame::CheckGuessValidity(Fstring)”: Przeciążona funkcja składowa nie została znaleziona w „FBullCowGame”
+  c:\users\torra\documents\section_02\projekt\section_02\bullcowgame\fbullcowgame.h(13): note: zobacz deklarację „FBullCowGame”
   main.cpp
   Generowanie kodu...
-  BullCowGame.vcxproj -> C:\Users\torra\Documents\Section_02\Projekt\Section_02\Debug\BullCowGame.exe
