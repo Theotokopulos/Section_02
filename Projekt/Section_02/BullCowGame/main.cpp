@@ -7,7 +7,7 @@ using int32 = int;
 
 void PrintIntro();
 void PlayGame();
-Ftext GetGuess();
+Ftext GetValidGuess();
 bool AskToPlayAgain();
 
 FBullCowGame BCGame;
@@ -33,22 +33,19 @@ void PlayGame()
 	BCGame.Reset();
 	int32 MaxTries = BCGame.GetMaxTries();
 	std::cout << MaxTries << std::endl;
-	for (int32 count = 1; count <= MaxTries; count++)
+	while (!BCGame.IsGameWon()&&BCGame.GetCurrentTry()<=MaxTries)
 	{
-		Ftext Guess = GetGuess();
-
-		EGuessStatus Status = BCGame.CheckGuessValidity(Guess);
+		Ftext Guess = GetValidGuess();
 
 		//submit valid guess, receive counts
-		FBullCowCount BullCowCount = BCGame.SubmitGuess(Guess);
+		FBullCowCount BullCowCount = BCGame.SubmitValidGuess(Guess);
 
-		//print number of bulls and cows
+		
 		std::cout << "Bulls = " << BullCowCount.Bulls;
 		std::cout << ". Cows = " << BullCowCount.Cows << std::endl;
 
 		//print the guess back
-		std::cout << "Your guess was: " << Guess << std::endl;
-		std::cout << std::endl;
+		std::cout << "Your guess was: " << Guess << "\n\n";
 	}
 
 }
@@ -63,13 +60,35 @@ void PrintIntro()
 	std::cout << std::endl;
 	return;
 }
-Ftext GetGuess()
+Ftext GetValidGuess()
 {
-	int32 CurrentTry = BCGame.GetCurrentTry();
-	//get a guess from the player
-	std::cout << "Try "<<CurrentTry<<". Enter your guess: ";
 	Ftext Guess = "";
-	getline(std::cin, Guess);
+	EGuessStatus Status = EGuessStatus::Invalid_Status;
+	do
+	{
+		int32 CurrentTry = BCGame.GetCurrentTry();
+		//get a guess from the player
+		std::cout << "Try " << CurrentTry << ". Enter your guess: ";
+		getline(std::cin, Guess);
+
+
+		Status = BCGame.CheckGuessValidity(Guess);
+		switch (Status)
+		{
+		case EGuessStatus::Wrong_Length:
+			std::cout << "Please enter a " << BCGame.GetHiddenWordLength() << " letter word.\n";
+			break;
+		case EGuessStatus::Not_Isogram:
+			std::cout << "Please enter an isogram.\n";
+			break;
+		case EGuessStatus::Not_Lowercase:
+			std::cout << "Please enter all lowercase letters.\n";
+			break;
+		default:
+			break;
+		}
+		std::cout<<std::endl;
+	} while (Status!=EGuessStatus::OK);
 	return Guess;
 }
 
