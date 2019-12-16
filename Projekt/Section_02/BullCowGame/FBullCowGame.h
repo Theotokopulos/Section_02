@@ -42,4 +42,5 @@ private: //inicjalizacja w construktorze
 	bool bGameIsWon;
 	
 	bool IsIsogram(Fstring) const;
+	bool IsLowercase(Fstring Word) const;
 };
