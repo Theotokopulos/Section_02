@@ -40,4 +40,6 @@ private: //inicjalizacja w construktorze
 	int32 MyMaxTries;
 	Fstring MyHiddenWord;
 	bool bGameIsWon;
+	
+	bool IsIsogram(Fstring) const;
 };
