@@ -35,9 +35,8 @@ public:
 	//Counts bulls and cows and increases try # assuming valid guess
 	FBullCowCount SubmitValidGuess(Fstring);
 
-private: //inicjalizacja w construktorze
+private: //see constructor for initialisation
 	int32 MyCurrentTry;
-	int32 MyMaxTries;
 	Fstring MyHiddenWord;
 	bool bGameIsWon;
 	
